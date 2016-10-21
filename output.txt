@@ -1,0 +1,11 @@
+Classification report for SVC(C=1.0, cache_size=200, class_weight=None, coef0=0.0,
+  decision_function_shape=None, degree=3, gamma='auto', kernel='rbf',
+  max_iter=-1, probability=False, random_state=None, shrinking=True,
+  tol=0.001, verbose=False)
+             precision    recall  f1-score   support
+
+         -1       0.89      1.00      0.94        25
+          1       0.00      0.00      0.00         3
+
+avg / total       0.80      0.89      0.84        28
+
