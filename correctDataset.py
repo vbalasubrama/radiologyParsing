@@ -1,6 +1,9 @@
 import csv
 import ast
 from ast import literal_eval
+from sklearn import svm
+from sklearn import metrics
+
 
 def openData():
     writer = open('./text/balancedVectors.csv', 'wb')
@@ -37,5 +40,33 @@ def checkData():
             else:
                 iN += 1
         print i, iN
-checkData()
+def trainOnData():
+    with open('./text/balancedVectors.csv', 'r') as csvfile:
+        reader = csv.reader(csvfile, delimiter='\t')
+        X = []
+        Y = []
+        for index, vector  in reader:
+            Y.append(literal_eval(index)[3])
+            data_line = literal_eval(vector)
+            X.append(data_line)
+    # X = []
+    # Y = []
+    # for key in list_of_index:
+    #     X.append(rows[key])
+    #     Y.append(key[3])
+    print "Training: "
+    clf = svm.SVC()
+
+    k_fold = 10
+    subset_size = len(X) / k_fold
+    for k in range(k_fold):
+        X_train = X[:k * subset_size] + X[(k + 1) * subset_size:]
+        X_test = X[k * subset_size:][:subset_size]
+        Y_train = Y[:k * subset_size] + Y[(k + 1) * subset_size:]
+        Y_test = Y[k * subset_size:][:subset_size]
+        clf.fit(X_train, Y_train)
+        Y_predicted = clf.predict(X_test)
+    print "Classification report for %s" % clf
+    print metrics.classification_report(Y_test, Y_predicted)
+trainOnData()
 
