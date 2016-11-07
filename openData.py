@@ -14,7 +14,7 @@ def openData():
         reader = csv.reader(csvfile, delimiter=',')
         for index, list in reader:
             list = ast.literal_eval(list)
-            if list.has_key('Pathology'):
+            if 'Pathology' in list:#list.has_key('Pathology'):
                 listOfIndexes[int(index)] = list['Pathology']
     return impressions, listOfIndexes
 

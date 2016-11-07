@@ -18,8 +18,6 @@ listOfPathologies = []
 i = 0
 #Split the impressions based on the indices for pathology
 for impresssionKey in list_of_impressions:
-    # if impresssionKey in [12, 247 , 400]:
-    #     print "Example"
 
     list_of_sentences = sent_tokenize(list_of_impressions[impresssionKey])
     if impresssionKey in list_of_pathologyIndexes.keys():
@@ -96,26 +94,26 @@ with open('./text/impressionsWithSentences.csv', 'wb') as the_file:
 writer = csv.writer(open('./text/vectors.csv', 'wb'))
 for key, value in rows.items():
                 writer.writerow([key, value])
-X = []
-Y = []
-for key in rows.keys():
-    X.append(rows[key])
-    Y.append(key[3])
-clf = svm.SVC()
-
-
-k_fold = 10
-subset_size = len(X) / k_fold
-for k in range(k_fold):
-    X_train = X[:k * subset_size] + X[(k + 1) * subset_size:]
-    X_test = X[k * subset_size:][:subset_size]
-    Y_train = Y[:k * subset_size] + Y[(k + 1) * subset_size:]
-    Y_test = Y[k * subset_size:][:subset_size]
-    clf.fit(X_train, Y_train)
-    Y_predicted = clf.predict(X_test)
-
-print "Classification report for %s" % clf
-print metrics.classification_report(Y_test, Y_predicted)
+# X = []
+# Y = []
+# for key in rows.keys():
+#     X.append(rows[key])
+#     Y.append(key[3])
+# clf = svm.SVC()
+#
+#
+# k_fold = 10
+# subset_size = len(X) / k_fold
+# for k in range(k_fold):
+#     X_train = X[:k * subset_size] + X[(k + 1) * subset_size:]
+#     X_test = X[k * subset_size:][:subset_size]
+#     Y_train = Y[:k * subset_size] + Y[(k + 1) * subset_size:]
+#     Y_test = Y[k * subset_size:][:subset_size]
+#     clf.fit(X_train, Y_train)
+#     Y_predicted = clf.predict(X_test)
+#
+# print "Classification report for %s" % clf
+# print metrics.classification_report(Y_test, Y_predicted)
 
 
 
